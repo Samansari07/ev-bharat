@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>EV Bharat — India's EV Intelligence Platform</title>
+
+  <meta name="description"
+        content="Compare electric cars, scooters, bikes and commercial EVs in India. Check prices, EMI, range, charging, ownership cost and more.">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #07100d;
+      --card: #0d1915;
+      --card2: #11221c;
+      --text: #f4f8f5;
+      --muted: #9eada5;
+      --green: #53e28a;
+      --green2: #20b968;
+      --line: rgba(255,255,255,.09);
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at 80% 10%, rgba(42,180,105,.18), transparent 30%),
+        radial-gradient(circle at 10% 40%, rgba(27,113,76,.12), transparent 30%),
+        var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1180px, 92%);
+      margin: auto;
+    }
+
+    /* NAVBAR */
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(18px);
+      background: rgba(7,16,13,.82);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav-inner {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 22px;
+      letter-spacing: -.5px;
+    }
+
+    .logo-mark {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--green), var(--green2));
+      color: #06120b;
+      font-size: 20px;
+      box-shadow: 0 8px 30px rgba(57,221,126,.18);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      color: #c6d0ca;
+      font-size: 14px;
+    }
+
+    .nav-links a:hover {
+      color: var(--green);
+    }
+
+    .nav-btn {
+      border: 1px solid var(--line);
+      padding: 11px 17px;
+      border-radius: 12px;
+      font-size: 14px;
+    }
+
+    /* HERO */
+
+    .hero {
+      padding: 88px 0 70px;
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 13px;
+      border: 1px solid rgba(83,226,138,.22);
+      background: rgba(83,226,138,.07);
+      border-radius: 100px;
+      color: var(--green);
+      font-size: 13px;
+      margin-bottom: 22px;
+    }
+
+    .hero h1 {
+      max-width: 850px;
+      margin: auto;
+      font-size: clamp(42px, 7vw, 76px);
+      line-height: .98;
+      letter-spacing: -4px;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(100deg, #fff, var(--green));
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      max-width: 680px;
+      margin: 25px auto 30px;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    .search {
+      max-width: 700px;
+      margin: auto;
+      padding: 8px;
+      display: flex;
+      gap: 8px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+    }
+
+    .search input {
+      flex: 1;
+      min-width: 0;
+      background: transparent;
+      border: 0;
+      outline: none;
+      padding: 15px;
+      color: white;
+      font-size: 16px;
+    }
+
+    .search button,
+    .primary {
+      border: 0;
+      cursor: pointer;
+      background: linear-gradient(135deg, var(--green), var(--green2));
+      color: #06120b;
+      font-weight: 800;
+      padding: 14px 21px;
+      border-radius: 13px;
+    }
+
+    /* STATS */
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      overflow: hidden;
+      background: rgba(255,255,255,.025);
+    }
+
+    .stat {
+      padding: 25px;
+      text-align: center;
+      border-right: 1px solid var(--line);
+    }
+
+    .stat:last-child {
+      border-right: 0;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 25px;
+      margin-bottom: 6px;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* SECTION */
+
+    section {
+      padding: 70px 0;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      margin-bottom: 25px;
+      gap: 20px;
+    }
+
+    .section-head h2 {
+      font-size: 34px;
+      letter-spacing: -1.5px;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      margin-top: 7px;
+    }
+
+    /* CATEGORY */
+
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(5,1fr);
+      gap: 14px;
+    }
+
+    .category {
+      padding: 25px 18px;
+      border: 1px solid var(--line);
+      background: linear-gradient(145deg, var(--card), rgba(13,25,21,.65));
+      border-radius: 18px;
+      transition: .25s;
+      cursor: pointer;
+    }
+
+    .category:hover {
+      transform: translateY(-5px);
+      border-color: rgba(83,226,138,.4);
+    }
+
+    .category .icon {
+      font-size: 28px;
+      margin-bottom: 18px;
+    }
+
+    .category h3 {
+      font-size: 16px;
+      margin-bottom: 7px;
+    }
+
+    .category p {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    /* TOOLS */
+
+    .tools {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 16px;
+    }
+
+    .tool {
+      padding: 25px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: linear-gradient(145deg, #0d1915, #0a1411);
+    }
+
+    .tool .tool-icon {
+      font-size: 28px;
+      margin-bottom: 18px;
+    }
+
+    .tool h3 {
+      margin-bottom: 8px;
+    }
+
+    .tool p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 18px;
+    }
+
+    .tool button {
+      background: transparent;
+      border: 1px solid var(--line);
+      color: var(--text);
+      border-radius: 10px;
+      padding: 9px 13px;
+      cursor: pointer;
+    }
+
+    /* FEATURE */
+
+    .feature {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 20px;
+      align-items: stretch;
+    }
+
+    .feature-main {
+      min-height: 350px;
+      border-radius: 25px;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: end;
+      background:
+        linear-gradient(to top, rgba(0,0,0,.8), rgba(0,0,0,.1)),
+        radial-gradient(circle at 70% 30%, #246443, #0b1812 55%);
+      border: 1px solid var(--line);
+    }
+
+    .feature-main h2 {
+      font-size: 38px;
+      max-width: 600px;
+      margin-bottom: 12px;
+    }
+
+    .feature-main p {
+      color: #bdc9c2;
+      max-width: 580px;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    .feature-side {
+      display: grid;
+      gap: 16px;
+    }
+
+    .mini {
+      padding: 25px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: var(--card);
+    }
+
+    .mini strong {
+      font-size: 28px;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .mini span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* FOOTER */
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 45px 0;
+      color: var(--muted);
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .footer-logo {
+      color: white;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    /* MOBILE */
+
+    @media(max-width:800px) {
+
+      .nav-links {
+        display: none;
+      }
+
+      .nav-btn {
+        display: none;
+      }
+
+      .hero {
+        padding: 65px 0 50px;
+      }
+
+      .hero h1 {
+        font-size: 48px;
+        letter-spacing: -2.5px;
+      }
+
+      .hero p {
+        font-size: 15px;
+      }
+
+      .search {
+        flex-direction: column;
+        background: rgba(255,255,255,.04);
+      }
+
+      .search button {
+        width: 100%;
+      }
+
+      .stats {
+        grid-template-columns: repeat(2,1fr);
+      }
+
+      .stat:nth-child(2) {
+        border-right: 0;
+      }
+
+      .stat:nth-child(-n+2) {
+        border-bottom: 1px solid var(--line);
+      }
+
+      .categories {
+        grid-template-columns: repeat(2,1fr);
+      }
+
+      .categories .category:last-child {
+        grid-column: span 2;
+      }
+
+      .tools {
+        grid-template-columns: 1fr;
+      }
+
+      .feature {
+        grid-template-columns: 1fr;
+      }
+
+      .feature-main {
+        min-height: 300px;
+        padding: 28px;
+      }
+
+      .feature-main h2 {
+        font-size: 30px;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<nav>
+  <div class="container nav-inner">
+
+    <a class="logo" href="#">
+      <div class="logo-mark">⚡</div>
+      EV Bharat
+    </a>
+
+    <div class="nav-links">
+      <a href="#explore">Explore</a>
+      <a href="#compare">Compare</a>
+      <a href="#tools">Calculators</a>
+      <a href="#charging">Charging</a>
+      <a href="#buy">Buy</a>
+    </div>
+
+    <a class="nav-btn" href="#tools">My EV</a>
+
+  </div>
+</nav>
+
+
+<main>
+
+  <!-- HERO -->
+
+  <section class="hero">
+    <div class="container">
+
+      <div class="badge">
+        ⚡ India's EV Intelligence Platform
+      </div>
+
+      <h1>
+        Find the EV that's
+        <span>right for you.</span>
+      </h1>
+
+      <p>
+        Compare electric cars, scooters, bikes and commercial EVs.
+        Understand the real price, EMI, range, charging and ownership cost
+        before you buy.
+      </p>
+
+      <div class="search">
+        <input
+          id="searchInput"
+          type="text"
+          placeholder="Search EV, brand or budget..."
+        >
+        <button onclick="searchEV()">Search EV</button>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- STATS -->
+
+  <div class="container">
+
+    <div class="stats">
+
+      <div class="stat">
+        <strong>EVs</strong>
+        <span>Cars, bikes, scooters & more</span>
+      </div>
+
+      <div class="stat">
+        <strong>360°</strong>
+        <span>Buying intelligence</span>
+      </div>
+
+      <div class="stat">
+        <strong>₹</strong>
+        <span>Real ownership cost</span>
+      </div>
+
+      <div class="stat">
+        <strong>AI</strong>
+        <span>Smart EV recommendations</span>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- EXPLORE -->
+
+  <section id="explore">
+
+    <div class="container">
+
+      <div class="section-head">
+        <div>
+          <h2>Explore Electric Mobility</h2>
+          <p>Everything from everyday scooters to premium electric SUVs.</p>
+        </div>
+      </div>
+
+      <div class="categories">
+
+        <div class="category">
+          <div class="icon">🚙</div>
+          <h3>Electric Cars</h3>
+          <p>Hatchbacks, SUVs, sedans & luxury</p>
+        </div>
+
+        <div class="category">
+          <div class="icon">🛵</div>
+          <h3>Electric Scooters</h3>
+          <p>City commuting & smart mobility</p>
+        </div>
+
+        <div class="category">
+          <div class="icon">🏍️</div>
+          <h3>Electric Bikes</h3>
+          <p>Commuter & performance motorcycles</p>
+        </div>
+
+        <div class="category">
+          <div class="icon">🛺</div>
+          <h3>3-Wheelers</h3>
+          <p>Passenger & commercial EVs</p>
+        </div>
+
+        <div class="category">
+          <div class="icon">🚚</div>
+          <h3>Commercial</h3>
+          <p>Cargo, LCVs & business mobility</p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- TOOLS -->
+
+  <section id="tools">
+
+    <div class="container">
+
+      <div class="section-head">
+        <div>
+          <h2>Make a Smarter Decision</h2>
+          <p>Powerful tools to understand the real cost of an EV.</p>
+        </div>
+      </div>
+
+      <div class="tools">
+
+        <div class="tool">
+          <div class="tool-icon">⚖️</div>
+          <h3>Compare EVs</h3>
+          <p>
+            Compare price, battery, range, power, charging,
+            warranty and ownership cost.
+          </p>
+          <button onclick="comingSoon('EV Comparison')">
+            Compare →
+          </button>
+        </div>
+
+        <div class="tool">
+          <div class="tool-icon">🏦</div>
+          <h3>EMI Calculator</h3>
+          <p>
+            Calculate down payment, loan amount, interest,
+            EMI and total repayment.
+          </p>
+          <button onclick="comingSoon('EMI Calculator')">
+            Calculate →
+          </button>
+        </div>
+
+        <div class="tool">
+          <div class="tool-icon">💰</div>
+          <h3>On-Road Price</h3>
+          <p>
+            Estimate the complete purchase cost based on
+            your location and vehicle.
+          </p>
+          <button onclick="comingSoon('On-Road Price Calculator')">
+            Calculate →
+          </button>
+        </div>
+
+        <div class="tool">
+          <div class="tool-icon">⚡</div>
+          <h3>Charging Cost</h3>
+          <p>
+            Estimate electricity cost based on your daily
+            driving and EV efficiency.
+          </p>
+          <button onclick="comingSoon('Charging Calculator')">
+            Calculate →
+          </button>
+        </div>
+
+        <div class="tool">
+          <div class="tool-icon">⛽</div>
+          <h3>EV vs Petrol</h3>
+          <p>
+            Discover potential fuel savings and long-term
+            ownership differences.
+          </p>
+          <button onclick="comingSoon('EV vs Petrol Calculator')">
+            Compare →
+          </button>
+        </div>
+
+        <div class="tool">
+          <div class="tool-icon">🔋</div>
+          <h3>Battery Intelligence</h3>
+          <p>
+            Understand battery capacity, warranty,
+            charging and long-term ownership.
+          </p>
+          <button onclick="comingSoon('Battery Intelligence')">
+            Explore →
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- FEATURE -->
+
+  <section id="compare">
+
+    <div class="container feature">
+
+      <div class="feature-main">
+
+        <div class="badge">COMING SOON</div>
+
+        <h2>
+          Tell us your budget.
+          We'll find your EV.
+        </h2>
+
+        <p>
+          Budget, daily kilometres, charging availability,
+          family size and driving pattern — our recommendation
+          engine will analyse everything.
+        </p>
+
+        <div>
+          <button class="primary"
+                  onclick="comingSoon('Find My EV')">
+            Find My EV →
+          </button>
+        </div>
+
+      </div>
+
+      <div class="feature-side">
+
+        <div class="mini">
+          <strong>₹ / month</strong>
+          <span>See the real monthly ownership cost</span>
+        </div>
+
+        <div class="mini">
+          <strong>5 Years</strong>
+          <span>Understand long-term EV ownership cost</span>
+        </div>
+
+        <div class="mini">
+          <strong>Verified</strong>
+          <span>Data sources and specifications will be transparent</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- BUY -->
+
+  <section id="buy">
+
+    <div class="container">
+
+      <div class="section-head">
+        <div>
+          <h2>From Discovery to Purchase</h2>
+          <p>One platform for your entire EV buying journey.</p>
+        </div>
+      </div>
+
+      <div class="categories">
+
+        <div class="category">
+          <div class="icon">🔎</div>
+          <h3>Discover</h3>
+          <p>Find the right vehicle</p>
+        </div>
+
+        <div class="category">
+          <div class="icon">⚖️</div>
+          <h3>Compare</h3>
+          <p>Understand the differences</p>
+        </div>
+
+        <div class="category">
+          <div class="icon">🏦</div>
+          <h3>Finance</h3>
+          <p>Explore EMI & loan options</p>
+        </div>
+
+        <div class="category">
+          <div class="icon">📍</div>
+          <h3>Dealer</h3>
+          <p>Find nearby dealers</p>
+        </div>
+
+        <div class="category">
+          <div class="icon">🚗</div>
+          <h3>Test Drive</h3>
+          <p>Connect with sellers</p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- CHARGING -->
+
+  <section id="charging">
+
+    <div class="container">
+
+      <div class="feature-main">
+
+        <div class="badge">EV CHARGING</div>
+
+        <h2>Never worry about where to charge.</h2>
+
+        <p>
+          Charging discovery, charger compatibility, charging
+          cost and eventually live availability — all in one place.
+        </p>
+
+        <div>
+          <button class="primary"
+                  onclick="comingSoon('Charging Map')">
+            Explore Charging →
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<footer>
+
+  <div class="container footer-inner">
+
+    <div>
+      <div class="footer-logo">⚡ EV Bharat</div>
+      <div>India's EV intelligence platform.</div>
+    </div>
+
+    <div>
+      © 2026 EV Bharat · Data will be independently verified.
+    </div>
+
+  </div>
+
+</footer>
+
+
+<script>
+
+  function searchEV() {
+
+    const value =
+      document.getElementById("searchInput").value.trim();
+
+    if (!value) {
+      alert("Type an EV, brand or budget to search.");
+      return;
+    }
+
+    alert(
+      "EV Bharat Search\\n\\nYou searched for: " +
+      value +
+      "\\n\\nOur complete EV database is coming in the next phase."
+    );
+  }
+
+
+  function comingSoon(feature) {
+
+    alert(
+      feature +
+      "\\n\\nThis feature will be connected to the EV database in the next development phase."
+    );
+
+  }
+
+</script>
+
+</body>
+          </html>
